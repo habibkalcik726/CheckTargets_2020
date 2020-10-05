@@ -107,7 +107,7 @@ namespace CheckTargets_2020.Controllers
                 return Json(ntfs);
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return Json(-1);
             }

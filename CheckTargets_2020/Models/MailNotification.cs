@@ -9,6 +9,7 @@ namespace CheckTargets_2020.Models
 {
     public class MailNotification : INotification
     {
+        // Source mail için seçilen mail https://myaccount.google.com/u/4/lesssecureapps?pli=1 linkinden less secure olarak ayarlanmalı
         public string SourceMail { get; set; }
         public string TargetMail { get; set; }
 
@@ -21,7 +22,7 @@ namespace CheckTargets_2020.Models
             //mail notification
             using (MailMessage mail = new MailMessage())
             {
-                mail.From = new MailAddress("godofothergods@gmail.com");
+                mail.From = new MailAddress(SourceMail);
                 mail.To.Add(TargetMail);
                 mail.Subject = "Target State";
                 mail.Body = "<h1>" + message + "</h1>";
@@ -30,7 +31,7 @@ namespace CheckTargets_2020.Models
 
                 using (SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587))
                 {
-                    smtp.Credentials = new NetworkCredential("godofothergods@gmail.com", "bablisok");
+                    smtp.Credentials = new NetworkCredential(SourceMail, "SourceMailPassword");
                     
                     smtp.EnableSsl = true;
                     smtp.Send(mail);
