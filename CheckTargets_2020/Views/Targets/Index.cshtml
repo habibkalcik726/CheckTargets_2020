@@ -1,0 +1,77 @@
+﻿@model List<CheckTargets_2020.Models.DTO.DTOTargets>
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<!-- Shopping Cart Table -->
+<div class="tm-cart-table table-responsive">
+    <table class="table table-bordered mb-0">
+        <thead>
+            <tr>
+                <th class="tm-cart-col-image" scope="col">ID</th>
+                <th class="tm-cart-col-productname" scope="col">NAME</th>
+                <th class="tm-cart-col-price" scope="col">URL</th>
+                <th class="tm-cart-col-quantity" scope="col">CREATED TIME</th>
+                <th class="tm-cart-col-total" scope="col">STATE</th>
+                <th class="tm-cart-col-remove" scope="col">NOTIFY</th>
+
+
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.ID</td>
+                    <td>@item.Name </td>
+                    <td>@item.Url </td>
+                    <td>@item.CreateTime </td>
+                    <td>@item.State</td>
+                    <td>
+                        <button class="submit-button" onclick="Notify(@item.ID)" type="button">Notify</button>
+                      
+                    </td>
+                </tr>
+
+            }
+        </tbody>
+    </table>
+</div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+
+    function Notify(id) {
+        alert(id);
+        $.ajax({
+            type: "GET",
+            //contentType: "application/json; charset=utf-8",
+            url: "/Targets/Notify?id="+id,
+          
+            dataType: "json",
+            success: function (res) {
+                if (res !== -1)
+                    alert(res.Name + " is created!");
+                else
+                    alert("Error occured!")
+
+            },
+            error: function (xhr, err) {
+                alert("readyState: " + xhr.readyState + "\nstatus: " + xhr.status);
+                alert("responseText: " + xhr.responseText);
+            }
+        })
+    }
+
+
+
+
+
+
+
+</script>
+

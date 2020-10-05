@@ -1,0 +1,54 @@
+﻿@model CheckTargets_2020.Models.DTO.DTOTargets
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<form class="contact-form" id="frmCreateTarget">
+
+    <input type="text" name="Name" />
+    <input type="text" name="URL" />
+    <input type="text" name="State" />
+
+    <button class="submit-button" type="submit">Search</button>
+
+</form>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+
+    $("#frmCreateTarget").on("submit", function (event) {
+
+        event.preventDefault();
+        var data = $('#frmCreateTarget').serialize()
+        $.ajax({
+            type: "POST",
+            //contentType: "application/json; charset=utf-8",
+            url: "/Targets/Create",
+            data: data,
+            dataType: "json",
+            success: function (res) {
+                if (res !== -1)
+                    alert(res.Name + " is created!");
+                else
+                    alert("Error occured!")
+
+            },
+            error: function (xhr, err) {
+                alert("readyState: " + xhr.readyState + "\nstatus: " + xhr.status);
+                alert("responseText: " + xhr.responseText);
+            }
+        })
+    });
+
+
+
+
+
+
+
+</script>
+
+
